@@ -3,8 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher, MatSnackBar } from '@angular/material';
 import { AccountService } from '../services/account/account.service';
+import { Router } from '@angular/router';
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
@@ -23,6 +24,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private snackbar: MatSnackBar,
     private accountService: AccountService
   ) { }
 
@@ -37,6 +40,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
       password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(18)]],
       status: ['active'],
+      role: ['user'],
       username: [null],
       realm: [null],
       mobile: [null],
@@ -59,11 +63,28 @@ export class SignupComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((res) => {
           console.log('signup successful: ', res);
+          this.snackbar.open(
+            'User registered successfully!',
+            'OK', {
+              duration: 4000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom'
+            }
+          );
+          this.router.navigate(['login']);
         }, (err: HttpErrorResponse) => {
           console.log(err.error);
           console.log(err.name);
           console.log(err.message);
           console.log(err.status);
+          this.snackbar.open(
+            err.message,
+            'OK', {
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom'
+            }
+          );
         });
       this.isSubmitted = false;
     }

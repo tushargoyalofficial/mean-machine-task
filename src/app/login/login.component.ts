@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AccountService } from '../services/account/account.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
@@ -21,6 +23,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private snackbar: MatSnackBar,
     private accountService: AccountService
   ) { }
 
@@ -50,11 +54,36 @@ export class LoginComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((res) => {
           console.log('Login successful: ', res);
+          this.accountService.userAuthentic(true);
+          this.accountService.setRole(res.user.role);
+          localStorage.setItem('authToken', res.id);
+          localStorage.setItem('userId', res.userId);
+          this.snackbar.open(
+            'Login successful!',
+            'OK',
+            {
+              duration: 4000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom'
+            }
+          );
+          this.router.navigate(['products']);
         }, (err: HttpErrorResponse) => {
+          this.accountService.userAuthentic(false);
+          localStorage.clear();
           console.log(err.error);
           console.log(err.name);
           console.log(err.message);
           console.log(err.status);
+          this.snackbar.open(
+            err.message,
+            'OK',
+            {
+              duration: 6000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom'
+            }
+          );
         });
       this.isSubmitted = false;
     }
