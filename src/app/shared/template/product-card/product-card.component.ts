@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CartService } from 'src/app/services/cart/cart.service';
-import { Product } from '../../modalsl/product.modal';
+import { CartProduct } from '../../modalsl/cart-product.modal';
 
 @Component({
   selector: 'app-product-card',
@@ -21,7 +21,7 @@ export class ProductCardComponent implements OnInit {
 
 
 
-  public addToCart(item: Product): void {
+  public addToCart(item: CartProduct): void {
     this.cartService.addProductToCart(item);
   }
 

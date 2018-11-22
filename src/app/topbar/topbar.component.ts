@@ -5,6 +5,7 @@ import { Subject, Observable } from 'rxjs';
 import { CartService } from '../services/cart/cart.service';
 import { Product } from '../shared/modalsl/product.modal';
 import { SignoutDialogComponent } from '../shared/dialogs/signout-dialog/signout-dialog.component';
+import { CartProduct } from '../shared/modalsl/cart-product.modal';
 
 @Component({
   selector: 'app-topbar',
@@ -19,6 +20,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
   // CART PRODUCTS OBSERVABLE FOR REALTIME UPDATE
   public cartItems$: Observable<Product[]>; // SUBSCRIBE TO PRODUCT CART ITEMS
   public getTotalAmount$: Observable<number>; // SUBSCRIBE TO PRODUCT CART TOTAL AMOUNT
+
+  public products: Array<Product> = [];
 
   constructor(
     private router: Router,
@@ -63,7 +66,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.cartItems$ = this.cartService.getCartItems();
     this.getTotalAmount$ = this.cartService.getCartTotalAmount();
-    this.cartItems$.subscribe(_ => _);
+    this.cartItems$.subscribe((products: CartProduct[]) => {
+      this.products = products;
+    });
   }
 
 
