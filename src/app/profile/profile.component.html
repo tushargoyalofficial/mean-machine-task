@@ -1,3 +1,73 @@
-<p>
-  profile works!
-</p>
+<app-topbar>Loading top nav bar</app-topbar>
+
+<mat-toolbar></mat-toolbar>
+
+<div class="container">
+  <div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div fxFlex="40" fxFlex.xs="90" fxFlex.sm="60" fxFlex.md="50" class="centre-div">
+
+        <form [formGroup]='userFormGroup' #form="ngForm" (ngSubmit)='updateUserInfo()'>
+          <div fxLayout="column" fxLayoutAlign="center center" class="inner-div">
+            <!-- PIC SECTION -->
+            <div class="image-div">
+              <img class="profile-img" [src]="imageURL" alt="profile-pic">
+              <button type="button" mat-mini-fab class="camera-button" color="primary" (click)="triggerFilePicker()">
+                <mat-icon>camera_alt</mat-icon>
+              </button>
+              <input type="file" accept="image/*" (change)="getFile($event)" style="display:none;" #uploadProfileImage>
+            </div>
+            <!-- PIC SECTION -->
+
+            <!-- USER FORM SECTION -->
+            <div class="form-div">
+              <mat-grid-list cols="1" rowHeight="110px">
+
+                <mat-grid-tile>
+                  <mat-form-field fxFlexFill appearance="outline">
+                    <mat-label>Full name</mat-label>
+                    <input matInput type="text" placeholder="Enter name here" formControlName="name" name="name"
+                      required>
+                    <mat-error *ngIf="userFormGroup.controls.name.invalid && (userFormGroup.controls.name.touched || userFormGroup.controls.name.dirty || isSubmitted)">
+                      <mat-error *ngIf="userFormGroup.controls.name.errors.required || userFormGroup.controls.name.errors.pattern">You
+                        need to enter a valid name</mat-error>
+                      <mat-error *ngIf="userFormGroup.controls.name.errors.minlength">Name must be atleast 3 char long</mat-error>
+                      <mat-error *ngIf="userFormGroup.controls.name.errors.maxlength">Name must not exceed 50
+                        characters</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                  <mat-form-field fxFlexFill appearance="outline">
+                    <mat-label>Email ID</mat-label>
+                    <input matInput type="email" placeholder="Enter email here" formControlName="email" name="email"
+                      required>
+                    <mat-error *ngIf="userFormGroup.controls.email.invalid && (userFormGroup.controls.email.touched || userFormGroup.controls.email.dirty || isSubmitted)">
+                      <mat-error *ngIf="userFormGroup.controls.email.errors.required">You need to enter a email</mat-error>
+                      <mat-error *ngIf="userFormGroup.controls.email.errors.pattern">Provided email is not valid</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </mat-grid-tile>
+
+              </mat-grid-list>
+            </div>
+            <!-- USER FORM SECTION -->
+          </div>
+
+          <!-- ACTION SECTION -->
+          <div class="action-div mat-elevation-z2" fxLayout="row" fxLayoutAlign="end center">
+            <div class="button-div" fxLayoutGap="20px">
+              <button mat-raised-button type="button">CANCEL</button>
+              <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">SAVE</button>
+              <mat-spinner [diameter]="30" [strokeWidth]="3" *ngIf="isLoading" color="primary"></mat-spinner>
+            </div>
+          </div>
+          <!-- ACTION SECTION -->
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <!-- CENTRE SCREEN DIV -->
+</div>
