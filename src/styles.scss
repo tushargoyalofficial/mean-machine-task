@@ -22,3 +22,19 @@ body {
 .nopaddingdialog .mat-dialog-container {
   padding: 0;
 }
+
+// CUSTOMIZING CART DROPDOWN
+.mat-menu-panel.cart-menu {
+  max-width: 340px;
+  min-width: 340px;
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media only screen and (max-width:767px) and (orientation: portrait) {
+  .mat-menu-panel.cart-menu {
+    max-width: 320px;
+    min-width: 280px;
+  }
+}
