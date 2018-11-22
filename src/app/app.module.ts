@@ -18,7 +18,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProductsComponent } from './products/products.component';
 
-// TEMPLATE
+// TEMPLATES
 import { TopbarComponent } from './topbar/topbar.component';
 import { ProductCardComponent } from './shared/template/product-card/product-card.component';
 
@@ -26,6 +26,9 @@ import { ProductCardComponent } from './shared/template/product-card/product-car
 import { AccountService } from './services/account/account.service';
 import { ProductService } from './services/product/product.service';
 import { CartService } from './services/cart/cart.service';
+
+// DIALOGS
+import { SignoutDialogComponent } from './shared/dialogs/signout-dialog/signout-dialog.component';
 
 
 
@@ -38,6 +41,7 @@ import { CartService } from './services/cart/cart.service';
     ProductsComponent,
     TopbarComponent,
     ProductCardComponent,
+    SignoutDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,12 +51,15 @@ import { CartService } from './services/cart/cart.service';
     FlexLayoutModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AppMaterialModule
+    AppMaterialModule,
   ],
   providers: [
     AccountService,
     ProductService,
-    CartService
+    CartService,
+  ],
+  entryComponents: [
+    SignoutDialogComponent,
   ],
   bootstrap: [AppComponent]
 })
