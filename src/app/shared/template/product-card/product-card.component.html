@@ -1,0 +1,16 @@
+<div fxLayout="row wrap" fxLayoutAlign="start stretch">
+  <div fxFlex="{{flexValue}}" fxFlex.xs="{{flexValueXS}}" fxFlex.sm="{{flexValueSM}}" fxFlex.md="{{flexValueMD}}" *ngFor="let item of items, let i=index">
+
+    <a [routerLink]="">
+      <mat-card class="card-gap mat-elevation-z4 hover">
+        <img mat-card-image src="assets/img/blank-img.png" [alt]="item.name" [ngStyle]="{'background':'url('+item.image+')', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}">
+        <p class="product_title_text">{{item.name}}</p>
+
+        <mat-card-content>
+          <p class="mat-title">${{item.price}}</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+
+  </div>
+</div>
