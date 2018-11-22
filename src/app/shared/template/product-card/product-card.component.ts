@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { CartService } from 'src/app/services/cart/cart.service';
+import { Product } from '../../modalsl/product.modal';
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +15,17 @@ export class ProductCardComponent implements OnInit {
   @Input() flexValueSM: string;
   @Input() flexValueMD: string;
 
-  constructor() { }
+  constructor(
+    private cartService: CartService
+  ) { }
+
+
+
+  public addToCart(item: Product): void {
+    this.cartService.addProductToCart(item);
+  }
+
+
 
   ngOnInit() {
   }

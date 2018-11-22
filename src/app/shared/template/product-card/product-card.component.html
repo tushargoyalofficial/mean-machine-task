@@ -8,7 +8,7 @@
 
       <mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
         <p class="mat-title">${{item.price}}</p>
-        <button mat-icon-button color="accent" matTooltip="Add {{item.name}} to cart">
+        <button mat-icon-button color="accent" matTooltip="Add {{item.name}} to cart" (click)="addToCart(item)">
           <mat-icon>add_shopping_cart</mat-icon>
         </button>
       </mat-card-content>
