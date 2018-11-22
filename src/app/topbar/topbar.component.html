@@ -55,7 +55,10 @@
     </div>
 
     <div fxFlex="70">
-      <h1 class="mat-headline name-text">{{userName}}</h1>
+      <div fxLayout="column" fxLayoutGap="8px">
+        <h1 class="mat-headline name-text">{{userName}}</h1>
+        <p class="mat-subheading-2">@ - {{userEmail}}</p>
+      </div>
     </div>
   </div>
 

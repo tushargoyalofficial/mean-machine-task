@@ -12,6 +12,7 @@ export class AccountService {
   public userId: BehaviorSubject<string> = new BehaviorSubject(null);
 
   public userName: BehaviorSubject<string> = new BehaviorSubject('');
+  public userEmail: BehaviorSubject<string> = new BehaviorSubject('');
   public userImage: BehaviorSubject<string> = new BehaviorSubject('');
 
   public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -45,6 +46,12 @@ export class AccountService {
   // SET USER NAME
   public setUserName(value: string): void {
     this.userName.next(value);
+  }
+
+
+  // SET USER EMAIL
+  public setUserEmail(value: string): void {
+    this.userEmail.next(value);
   }
 
 

@@ -22,6 +22,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   public userId: string;
   public userName: string;
   public imageURL: string;
+  public userEmail: string;
 
   // CART PRODUCTS OBSERVABLE FOR REALTIME UPDATE
   public cartItems$: Observable<Product[]>; // SUBSCRIBE TO PRODUCT CART ITEMS
@@ -78,6 +79,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.accountService.userName
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(name => this.userName = name);
+    this.accountService.userEmail
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(email => this.userEmail = email);
     this.accountService.userImage
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(img => {
