@@ -32,6 +32,20 @@
 
 <!-- CART MENU -->
 <mat-menu #cartMenu="matMenu" [overlapTrigger]="false" class="cart-menu">
-
+  <mat-list>
+    <h3 mat-title>Products in cart</h3>
+    <mat-list-item *ngFor="let product of products">
+      <mat-icon mat-list-icon>folder</mat-icon>
+      <h4 mat-line>{{product.name}}</h4>
+      <p mat-line>nos: {{product.quantity}} (total: $ {{product.cartPrice}})</p>
+      <p mat-line>Actual price: $ {{product.price}} </p>
+    </mat-list-item>
+  </mat-list>
+  <mat-divider></mat-divider>
+  <br>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h3 class="mat-subheading-2">Total:</h3>
+    <h2 class="mat-title">$ {{(getTotalAmount$ | async)}}</h2>
+  </div>
 </mat-menu>
 <!-- CART MENU -->
