@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { CartService } from '../services/cart/cart.service';
 import { Product } from '../shared/modalsl/product.modal';
+import { SignoutDialogComponent } from '../shared/dialogs/signout-dialog/signout-dialog.component';
 
 @Component({
   selector: 'app-topbar',
@@ -21,6 +22,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private cartService: CartService
   ) { }
 
@@ -36,8 +38,22 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
 
 
-  signout() {
-
+  // OPEN SIGNOUT DIALOG
+  public openSignoutDialog(): void {
+    const dialogRef = this.dialog.open(SignoutDialogComponent, {
+      closeOnNavigation: true,
+      disableClose: true,
+      minWidth: 320,
+      panelClass: 'nopaddingdialog',
+      maxHeight: '80vh',
+      width: '40%',
+      maxWidth: 450,
+      role: 'alertdialog',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe((closed) => {
+      // run on dialog closed
+    });
   }
 
 
