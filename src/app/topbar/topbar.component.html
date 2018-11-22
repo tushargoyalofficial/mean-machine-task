@@ -2,23 +2,14 @@
 <mat-toolbar color="primary" class="fixed-bar">
   <span>All Products</span>
   <span class="flex-spacer"></span>
-  <!-- <button *ngIf="(cartItems$ | async).length > 0" mat-button style="width: 260px;" (click)="cartPanel()">
-    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-      <div style="width: 35px; height: 35px;">
-        <mat-icon style="font-size: 35px;">person_pin</mat-icon>
-      </div>
-      <div fxLayout="column" fxLayoutAlign="center start">
-        <p class="mat-subheading-1">{{(cartItems$ | async).length}} Products</p>
-        <p class="mat-body-1">&#8377; {{(getTotalAmount$ | async)}}</p>
-      </div>
-      <span class="fill-remaining-space"></span>
-      <div style="width: 30px; height: 30px;">
-        <mat-icon style="font-size: 30px;">keyboard_arrow_down</mat-icon>
-      </div>
-    </div>
-  </button> -->
   <button mat-icon-button [matMenuTriggerFor]="cartMenu" [matBadge]="(cartItems$ | async).length" matBadgePosition="above after" matBadgeColor="warn">
     <mat-icon>shopping_cart</mat-icon>
+  </button>
+
+  <span style="margin: 0px 8px 0px 8px;"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="profile">
+    <mat-icon>person_pin</mat-icon>
   </button>
 
   <span style="margin: 0px 8px 0px 8px;"></span>
@@ -55,3 +46,23 @@
   </div>
 </mat-menu>
 <!-- CART MENU -->
+
+<!-- PROFILE MENU -->
+<mat-menu #profile="matMenu" [overlapTrigger]="false" class="profile-menu">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center" fxLayoutGap="20px" style="margin-bottom:20px;">
+    <div fxFlex="30">
+      <img class="profile-img" [src]="imageURL" alt="profile-pic">
+    </div>
+
+    <div fxFlex="70">
+      <h1 class="mat-headline name-text">{{userName}}</h1>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center start">
+    <button mat-button [routerLink]="['/user_profile', userId]">
+      <mat-icon color="warn">mode_edit</mat-icon> Edit Profile
+    </button>
+  </div>
+</mat-menu>
+<!-- PROFILE MENU -->

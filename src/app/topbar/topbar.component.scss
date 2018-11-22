@@ -10,3 +10,27 @@
 .mat-list .mat-list-item .mat-list-avatar {
   border-radius: 0px !important;
 }
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.details-section {
+  margin-top:10px;
+}
+
+.name-text {
+  line-height: 50px;
+  font-size: 40px;
+  font-weight: 300;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.edit-icon {
+  color: #C62828;
+  font-size: 24px;
+}
