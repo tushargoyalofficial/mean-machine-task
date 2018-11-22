@@ -26,6 +26,7 @@ import { ProductCardComponent } from './shared/template/product-card/product-car
 import { AccountService } from './services/account/account.service';
 import { ProductService } from './services/product/product.service';
 import { CartService } from './services/cart/cart.service';
+import { ProfileService } from './services/profile/profile.service';
 
 // DIALOGS
 import { SignoutDialogComponent } from './shared/dialogs/signout-dialog/signout-dialog.component';
@@ -57,6 +58,7 @@ import { SignoutDialogComponent } from './shared/dialogs/signout-dialog/signout-
     AccountService,
     ProductService,
     CartService,
+    ProfileService
   ],
   entryComponents: [
     SignoutDialogComponent,

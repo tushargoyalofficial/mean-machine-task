@@ -3,6 +3,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ProfileService } from '../services/profile/profile.service';
+import { UserProfile } from '../shared/modalsl/user-profile.modal';
+import { Upload } from '../shared/modalsl/upload.modal';
+import { AccountService } from '../services/account/account.service';
 const NAME_REGEX = /^[A-Za-z ]+$/;
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -32,6 +36,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private renderer: Renderer,
+    private accountService: AccountService,
+    private profileService: ProfileService
   ) { }
 
 
@@ -76,6 +82,57 @@ export class ProfileComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.pattern(EMAIL_REGEX)]],
       updatedAt: [new Date()]
     });
+  }
+
+
+
+
+
+  // UPDATE USER VALUES ON SERVER
+  public updateUserInfo(): void {
+    this.isSubmitted = true;
+    if (!this.userFormGroup.valid) {
+      return;
+    } else {
+      this.isLoading = true;
+      if (this.imageName && this.imageObj) {
+        // FIRST UPLOAD IMAGE TO SERVER
+        this.profileService.uploadImage(this.imageObj)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((uploaded: Upload) => {
+            const data: UserProfile = this.userFormGroup.value;
+            data.image = uploaded.result.files.file[0].name;
+            // NOW UPDATE THE USER DATA
+            this.profileService.updateUserData(data)
+              .pipe(takeUntil(this.ngUnsubscribe))
+              .subscribe((res: UserProfile) => {
+                console.log('User data updated: ', res);
+                this.accountService.setUserName(res.name);
+                this.accountService.setUserEmail(res.email);
+                this.accountService.setUserImage(res.image);
+                this.isLoading = false;
+              }, err => {
+                console.log('User update error: ', err);
+                this.isLoading = false;
+              });
+          });
+      } else {
+        this.profileService.updateUserData(this.userFormGroup.value)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((res: UserProfile) => {
+            console.log('User data updated: ', res);
+            this.accountService.setUserName(res.name);
+            this.accountService.setUserEmail(res.email);
+            this.accountService.setUserImage(res.image);
+            this.isLoading = false;
+          }, err => {
+            console.log('User update error: ', err);
+            this.isLoading = false;
+          });
+      }
+
+      this.isSubmitted = false;
+    }
   }
 
 
