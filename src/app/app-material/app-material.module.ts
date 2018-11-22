@@ -15,6 +15,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -32,6 +34,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatDialogModule,
     MatBadgeModule,
     MatMenuModule,
+    MatListModule,
+    MatDividerModule,
   ],
   exports: [
     MatCardModule,
@@ -47,6 +51,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatDialogModule,
     MatBadgeModule,
     MatMenuModule,
+    MatListModule,
+    MatDividerModule,
   ],
   declarations: []
 })
