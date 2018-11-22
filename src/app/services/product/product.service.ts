@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SERVERURL } from '../config/api';
 import { AccountService } from '../account/account.service';
+import { Product } from 'src/app/shared/modalsl/product.modal';
 
 @Injectable({
   providedIn: 'root'
