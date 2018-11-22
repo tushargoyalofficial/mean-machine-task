@@ -8,12 +8,27 @@ import { SERVERURL } from '../config/api';
 })
 export class AccountService {
 
+  public authId: BehaviorSubject<string> = new BehaviorSubject(null);
+  public userId: BehaviorSubject<string> = new BehaviorSubject(null);
   public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public userRole: BehaviorSubject<string> = new BehaviorSubject(null);
 
   constructor(
     private http: HttpClient
   ) { }
+
+
+
+  // SET AUTH ID FOR MAKING IT GLOBALLY ACCESSEBLE
+  public setAuthId(value: string): void {
+    this.authId.next(value);
+  }
+
+
+  // SET USER ID FOR MAKING IT GLOBALLY ACCESSEBLE
+  public setUserId(value: string): void {
+    this.userId.next(value);
+  }
 
 
 

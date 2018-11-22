@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
       this.accountService.checkUserInfo(accessToken, userId)
         .subscribe((res: any) => {
           if (res.id && res.role && res.status === 'active') {
+            this.accountService.setAuthId(accessToken);
+            this.accountService.setUserId(userId);
             this.accountService.userAuthentic(true);
             this.accountService.setRole(res.role);
             this.router.navigate(['products']);

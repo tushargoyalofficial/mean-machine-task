@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((res) => {
           console.log('Login successful: ', res);
+          this.accountService.setAuthId(res.id);
+          this.accountService.setUserId(res.userId);
           this.accountService.userAuthentic(true);
           this.accountService.setRole(res.user.role);
           localStorage.setItem('authToken', res.id);
