@@ -33,8 +33,9 @@ export class TopbarComponent implements OnInit, OnDestroy {
 
 
 
-  cartPanel() {
-
+  // REMOVE PRODUCT FROM CART
+  removeProduct(item: CartProduct): void {
+    this.cartService.removeProductFromCart(item);
   }
 
 

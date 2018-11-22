@@ -33,12 +33,18 @@
 <!-- CART MENU -->
 <mat-menu #cartMenu="matMenu" [overlapTrigger]="false" class="cart-menu">
   <mat-list>
-    <h3 mat-title>Products in cart</h3>
+    <h2 class="mat-title">Products in cart</h2>
+    <p class="mat-body-1" *ngIf="(cartItems$ | async).length == 0">Please add product to cart</p>
     <mat-list-item *ngFor="let product of products">
-      <mat-icon mat-list-icon>folder</mat-icon>
+      <img matListAvatar src="assets/img/blank-img.png" [alt]="product.name" [ngStyle]="{'background':'url('+product.image+')', 'background-size': 'contain', 'background-repeat': 'no-repeat', 'background-position': 'center'}">
       <h4 mat-line>{{product.name}}</h4>
       <p mat-line>nos: {{product.quantity}} (total: $ {{product.cartPrice}})</p>
       <p mat-line>Actual price: $ {{product.price}} </p>
+      <div mat-secondary>
+        <button mat-icon-button (click)="$event.stopPropagation();" (click)="removeProduct(product)">
+          <mat-icon color="warn">delete</mat-icon>
+        </button>
+      </div>
     </mat-list-item>
   </mat-list>
   <mat-divider></mat-divider>
