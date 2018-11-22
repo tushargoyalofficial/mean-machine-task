@@ -10,6 +10,10 @@ export class AccountService {
 
   public authId: BehaviorSubject<string> = new BehaviorSubject(null);
   public userId: BehaviorSubject<string> = new BehaviorSubject(null);
+
+  public userName: BehaviorSubject<string> = new BehaviorSubject('');
+  public userImage: BehaviorSubject<string> = new BehaviorSubject('');
+
   public isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public userRole: BehaviorSubject<string> = new BehaviorSubject(null);
 
@@ -31,11 +35,22 @@ export class AccountService {
   }
 
 
-
   // IF USER AUTHENTICATED, true ELSE false
   public userAuthentic(value: boolean): boolean {
     this.isAuthenticated.next(value);
     return this.isAuthenticated.value;
+  }
+
+
+  // SET USER NAME
+  public setUserName(value: string): void {
+    this.userName.next(value);
+  }
+
+
+  // SET USER IMAGE
+  public setUserImage(value: string): void {
+    this.userImage.next(value);
   }
 
 
