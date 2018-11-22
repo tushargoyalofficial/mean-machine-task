@@ -13,6 +13,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -28,6 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatTooltipModule,
     MatDialogModule,
+    MatBadgeModule,
+    MatMenuModule,
   ],
   exports: [
     MatCardModule,
@@ -41,6 +45,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MatTooltipModule,
     MatDialogModule,
+    MatBadgeModule,
+    MatMenuModule,
   ],
   declarations: []
 })
