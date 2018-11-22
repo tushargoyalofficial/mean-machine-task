@@ -1,0 +1,11 @@
+.product-container {
+  padding: 35px;
+  margin-top: 70px;
+}
+
+@media screen and (max-width: 480px) {
+  .product-container {
+    padding: 8px;
+    margin-top: 50px;
+  }
+}
