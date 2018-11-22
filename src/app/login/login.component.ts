@@ -42,23 +42,22 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // LOGIN METHOD
   onLogin(): void {
-    // this.isSubmitted = true;
-    // if (!this.loginFormGroup.valid) {
-    //   return;
-    // } else {
-    //   console.log('form values: ', this.loginFormGroup.value);
-    //   this.accountService.loginOnServer(this.loginFormGroup.value)
-    //     .pipe(takeUntil(this.ngUnsubscribe))
-    //     .subscribe((res) => {
-    //       console.log('Login successful: ', res);
-    //     }, (err: HttpErrorResponse) => {
-    //       console.log(err.error);
-    //       console.log(err.name);
-    //       console.log(err.message);
-    //       console.log(err.status);
-    //     });
-    //   this.isSubmitted = false;
-    // }
+    this.isSubmitted = true;
+    if (!this.loginFormGroup.valid) {
+      return;
+    } else {
+      this.accountService.loginOnServer(this.loginFormGroup.value)
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res) => {
+          console.log('Login successful: ', res);
+        }, (err: HttpErrorResponse) => {
+          console.log(err.error);
+          console.log(err.name);
+          console.log(err.message);
+          console.log(err.status);
+        });
+      this.isSubmitted = false;
+    }
   }
 
 
