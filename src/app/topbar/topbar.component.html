@@ -1,7 +1,8 @@
+<!-- MAIN TOOLBAL -->
 <mat-toolbar color="primary" class="fixed-bar">
   <span>All Products</span>
   <span class="flex-spacer"></span>
-  <button *ngIf="(cartItems$ | async).length > 0" mat-button style="width: 260px;" (click)="cartPanel()">
+  <!-- <button *ngIf="(cartItems$ | async).length > 0" mat-button style="width: 260px;" (click)="cartPanel()">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
       <div style="width: 35px; height: 35px;">
         <mat-icon style="font-size: 35px;">person_pin</mat-icon>
@@ -15,8 +16,22 @@
         <mat-icon style="font-size: 30px;">keyboard_arrow_down</mat-icon>
       </div>
     </div>
+  </button> -->
+  <button mat-icon-button [matMenuTriggerFor]="cartMenu" [matBadge]="(cartItems$ | async).length" matBadgePosition="above after" matBadgeColor="warn">
+    <mat-icon>shopping_cart</mat-icon>
   </button>
+
+  <span style="margin: 0px 8px 0px 8px;"></span>
+
   <button mat-icon-button (click)="openSignoutDialog()">
     <mat-icon>power_settings_new</mat-icon>
   </button>
 </mat-toolbar>
+<!-- MAIN TOOLBAR -->
+
+
+<!-- CART MENU -->
+<mat-menu #cartMenu="matMenu" [overlapTrigger]="false" class="cart-menu">
+
+</mat-menu>
+<!-- CART MENU -->
