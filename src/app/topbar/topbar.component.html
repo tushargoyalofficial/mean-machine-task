@@ -2,7 +2,11 @@
 <mat-toolbar color="primary" class="fixed-bar">
   <span>All Products</span>
   <span class="flex-spacer"></span>
-  <button mat-icon-button [matMenuTriggerFor]="cartMenu" [matBadge]="(cartItems$ | async).length" matBadgePosition="above after" matBadgeColor="warn">
+  <button mat-icon-button *ngIf="(cartItems$ | async).length > 0" [matMenuTriggerFor]="cartMenu" [matBadge]="(cartItems$ | async).length" matBadgePosition="above after" matBadgeColor="warn">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+
+  <button mat-icon-button *ngIf="(cartItems$ | async).length === 0" [matMenuTriggerFor]="cartMenu">
     <mat-icon>shopping_cart</mat-icon>
   </button>
 

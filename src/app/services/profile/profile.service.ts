@@ -25,17 +25,28 @@ export class ProfileService {
 
 
 
+  // GET USER DATA TO SHOW IN INPUT FIELD
+  fetchUserInfo(): Observable<UserProfile> {
+    const url = SERVERURL + '/Accounts/' + this.userId + '?access_token=' + this.accessToken;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get(url, httpOptions);
+  }
+
+
+
+
   // UPLOAD USER IMAGE
   uploadImage(body: any): Observable<any> {
     const url = SERVERURL + '/Uploads/profile-pic/upload?access_token=' + this.accessToken;
     const fd: FormData = new FormData();
     fd.append('file', body);
 
-    return this.http.post(url, fd)
-      .pipe(
-        map((res: Response) => res.json()),
-        catchError((error: any) => Observable.throw(error.json().error || 'Server error'))
-      );
+    return this.http.post(url, fd);
   }
 
 

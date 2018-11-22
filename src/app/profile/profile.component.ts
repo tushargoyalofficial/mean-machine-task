@@ -7,6 +7,7 @@ import { ProfileService } from '../services/profile/profile.service';
 import { UserProfile } from '../shared/modalsl/user-profile.modal';
 import { Upload } from '../shared/modalsl/upload.modal';
 import { AccountService } from '../services/account/account.service';
+import { SERVERURL } from '../services/config/api';
 const NAME_REGEX = /^[A-Za-z ]+$/;
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -100,6 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.profileService.uploadImage(this.imageObj)
           .pipe(takeUntil(this.ngUnsubscribe))
           .subscribe((uploaded: Upload) => {
+            console.log(uploaded);
             const data: UserProfile = this.userFormGroup.value;
             data.image = uploaded.result.files.file[0].name;
             // NOW UPDATE THE USER DATA
@@ -115,7 +117,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 console.log('User update error: ', err);
                 this.isLoading = false;
               });
-          });
+          }, err => console.log('Image upload error: ', err));
       } else {
         this.profileService.updateUserData(this.userFormGroup.value)
           .pipe(takeUntil(this.ngUnsubscribe))
@@ -147,6 +149,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((params) => {
         this.userId = params.id;
+        this.profileService.fetchUserInfo()
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe((user: UserProfile) => {
+            this.userFormGroup.controls['name'].setValue(user.name);
+            this.userFormGroup.controls['email'].setValue(user.email);
+            if (user.image) {
+              this.imageURL = SERVERURL + '/Uploads/profile-pic/download/' + user.image;
+            } else {
+              this.imageURL = 'assets/img/profileImg.png';
+            }
+          }, err => console.log('Error fetching user info: ', err));
       });
   }
 

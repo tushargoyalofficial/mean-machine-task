@@ -8,6 +8,7 @@ import { SignoutDialogComponent } from '../shared/dialogs/signout-dialog/signout
 import { CartProduct } from '../shared/modalsl/cart-product.modal';
 import { AccountService } from '../services/account/account.service';
 import { takeUntil } from 'rxjs/operators';
+import { SERVERURL } from '../services/config/api';
 
 @Component({
   selector: 'app-topbar',
@@ -86,7 +87,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(img => {
         if (img) {
-          this.imageURL = img;
+          this.imageURL = SERVERURL + '/Uploads/profile-pic/download/' + img;
         } else {
           this.imageURL = 'assets/img/profileImg.png';
         }
