@@ -17,6 +17,9 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProductsComponent } from './products/products.component';
 
+// TEMPLATE
+import { ProductCardComponent } from './shared/template/product-card/product-card.component';
+
 // ALL SERVICES
 import { AccountService } from './services/account/account.service';
 import { ProductService } from './services/product/product.service';
@@ -30,7 +33,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     SignupComponent,
     ProfileComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
