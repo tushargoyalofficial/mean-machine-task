@@ -47,18 +47,14 @@ export class AccountService {
 
 
   // LOGIN METHOD TO INTERACT WITH SERVER API
-  loginOnServer(body: Object): Observable<any> {
+  public loginOnServer(body: Object): Observable<any> {
     const url: string = SERVERURL + '/Accounts/login?include=["user"]';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        // 'Authorization': fooBarToken
       }),
       withCredentials: true // for set-cookie to work
     };
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json'
-    // });
     return this.http.post(url, body, httpOptions);
   }
 
@@ -66,18 +62,13 @@ export class AccountService {
 
 
   // SIGNUP METHOD TO INTERACT WITH SERVER API
-  signupOnServer(body: Object): Observable<any> {
+  public signupOnServer(body: Object): Observable<any> {
     const url: string = SERVERURL + '/Accounts';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        // 'Authorization': fooBarToken
       }),
-      // withCredentials: true // for set-cookie to work
     };
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json'
-    // });
     return this.http.post(url, body, httpOptions);
   }
 
@@ -85,7 +76,7 @@ export class AccountService {
 
 
   // CHECK ACCESS TOKEN IS VALID OR NOT
-  checkUserInfo(authId: string, userId: string): Observable<any> {
+  public checkUserInfo(authId: string, userId: string): Observable<any> {
     const url: string = SERVERURL + '/Accounts/' + userId + '?access_token=' + authId;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -94,6 +85,21 @@ export class AccountService {
     };
 
     return this.http.get(url, httpOptions);
+  }
+
+
+
+
+  // LOGOUT USER FROM SYSTEM
+  public logoutUser(body: Object): Observable<any> {
+    const url: string = SERVERURL + '/Accounts/logout?access_token=' + this.authId.value;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.post(url, body, httpOptions);
   }
 
 }
