@@ -3,13 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ProductService } from '../services/product/product.service';
 import { Router } from '@angular/router';
-
-export interface Product {
-  id; string;
-  name: string;
-  image: string;
-  price: number;
-}
+import { Product } from '../shared/modalsl/product.modal';
 
 @Component({
   selector: 'app-products',
@@ -18,7 +12,7 @@ export interface Product {
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
-  // for unsubscribe from listners
+  // FOR UNSUBSCRIBING FROM SUBSCRIPTION
   private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
   public products: Array<Product> = [];
