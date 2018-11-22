@@ -1,0 +1,50 @@
+<div class="login-container">
+  <div class="centered">
+    <mat-card class="mat-elevation-z8" fxFlex="500px" fxFlex.xs="250px" fxFlex.sm="400px" fxflex.md="450px" fxFlex.lg="550px"
+      fxFlex.xl="600px">
+      <form [formGroup]="loginFormGroup" #loginFomr="ngForm" (ngSubmit)="onLogin()" novalidate>
+        <div fxLayoutAlign="center ">
+          <h2 class="mat-title">LOGIN</h2>
+        </div>
+        <br>
+        <mat-card-content>
+          <mat-grid-list [cols]="1" rowHeight="65px" gutterSize="15">
+
+            <mat-grid-tile>
+              <mat-form-field fxFlexFill>
+                <input matInput type="email" placeholder="Email" name="email" formControlName="email">
+                <mat-error *ngIf="loginFormGroup.controls.email.invalid && (loginFormGroup.controls.email.touched || loginFormGroup.controls.email.dirty || isSubmitted)">
+                  <mat-error *ngIf="loginFormGroup.controls.email.errors.required">Email is required</mat-error>
+                  <mat-error *ngIf="loginFormGroup.controls.email.errors.pattern">Please enter valid email id</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+              <mat-form-field fxFlexFill>
+                <input matInput type="password" placeholder="Password" name="password" formControlName="password">
+                <mat-error *ngIf="loginFormGroup.controls.password.invalid && (loginFormGroup.controls.password.touched || loginFormGroup.controls.password.dirty || isSubmitted)">
+                  <mat-error *ngIf="loginFormGroup.controls.password.errors.required">Password is required</mat-error>
+                  <mat-error *ngIf="loginFormGroup.controls.password.errors.minlength">Password must be atleast 5 char
+                    long</mat-error>
+                  <mat-error *ngIf="loginFormGroup.controls.password.errors.maxlength">Password must not exceed 50
+                    characters</mat-error>
+                </mat-error>
+              </mat-form-field>
+            </mat-grid-tile>
+
+          </mat-grid-list>
+          <br>
+          <div fxLayoutAlign="end center">
+            <button mat-raised-button type="submit" color="primary">LOGIN</button>
+          </div>
+        </mat-card-content>
+        <mat-card-footer>
+          <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+            <p class="mat-body-2 footer-text">Not Registered? <a [routerLink]="['/signup']">Signup</a></p>
+          </div>
+        </mat-card-footer>
+      </form>
+    </mat-card>
+  </div>
+</div>
