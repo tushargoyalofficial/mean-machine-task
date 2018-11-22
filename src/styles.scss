@@ -17,3 +17,8 @@ body {
 .flex-spacer {
   flex: 1 1 auto;
 }
+
+// MY CUSTOM DIALOG
+.nopaddingdialog .mat-dialog-container {
+  padding: 0;
+}

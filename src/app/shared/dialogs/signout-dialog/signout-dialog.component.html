@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span>Signout confirmation</span>
+  <span class="flex-spacer"></span>
+  <button mat-icon-button [mat-dialog-close]="true" tabindex="-1">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-dialog-content class="dialog-container">
+  <p class="mat-body-2">Are you sure you want to signout from this session. Any unsaved changes will be lost.</p>
+
+  <br>
+
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.xs="center center" fxLayoutGap="10px">
+    <button mat-button color="primary" [mat-dialog-close]="true" tabindex="-1">CANCEL</button>
+    <button mat-raised-button color="primary" (click)="signout()">SIGNOUT</button>
+  </div>
+</mat-dialog-content>
