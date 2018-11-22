@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="fixed-bar">
+  <span>All Products</span>
+  <span class="flex-spacer"></span>
+  <button *ngIf="(cartItems$ | async).length > 0" mat-button style="width: 260px;" (click)="cartPanel()">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <div style="width: 35px; height: 35px;">
+        <mat-icon style="font-size: 35px;">person_pin</mat-icon>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="center start">
+        <p class="mat-subheading-1">{{(cartItems$ | async).length}} Products</p>
+        <p class="mat-body-1">&#8377; {{(getTotalAmount$ | async)}}</p>
+      </div>
+      <span class="fill-remaining-space"></span>
+      <div style="width: 30px; height: 30px;">
+        <mat-icon style="font-size: 30px;">keyboard_arrow_down</mat-icon>
+      </div>
+    </div>
+  </button>
+  <button mat-icon-button (click)="signout()">
+    <mat-icon>power_settings_new</mat-icon>
+  </button>
+</mat-toolbar>
