@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Product } from 'src/app/shared/modalsl/product.modal';
+import { CartProduct } from 'src/app/shared/modalsl/cart-product.modal';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,8 @@ import { Product } from 'src/app/shared/modalsl/product.modal';
 export class CartService {
 
   // PRODUCT CART OBSERVABLE
-  private productItemsInCartSubject: BehaviorSubject<Array<Product>> = new BehaviorSubject([]);
-  private productItemsInCart: Array<Product> = [];
+  private productItemsInCartSubject: BehaviorSubject<Array<CartProduct>> = new BehaviorSubject([]);
+  private productItemsInCart: Array<CartProduct> = [];
   private productTempArray: Array<any> = [];
 
   constructor() {
@@ -22,16 +22,17 @@ export class CartService {
 
   // PRODUCTS TO CART METHODS *********************************************
 
-  public addProductToCart(item: Product): void {
+  public addProductToCart(item: CartProduct): void {
     const currentItems = [...this.productItemsInCart];
     if (this.productTempArray.indexOf(item.id) === -1) {
       item.quantity = 1;
-      this.productItemsInCartSubject.next([...this.productItemsInCart, item]);
+      item.cartPrice = item.price;
+      this.productItemsInCartSubject.next([...currentItems, item]);
       this.productTempArray.push(item.id);
     } else {
       const index: number = this.productTempArray.indexOf(item.id);
       this.productItemsInCart[index].quantity++;
-      this.productItemsInCart[index].price = this.productItemsInCart[index].price * this.productItemsInCart[index].quantity;
+      this.productItemsInCart[index].cartPrice = this.productItemsInCart[index].price * this.productItemsInCart[index].quantity;
       this.productItemsInCartSubject.next(this.productItemsInCart);
     }
   }
@@ -39,7 +40,7 @@ export class CartService {
 
 
 
-  public removeProductFromCart(item: Product): void {
+  public removeProductFromCart(item: CartProduct): void {
     const index: number = this.productTempArray.indexOf(item.id);
     if (index !== -1) {
       const quantity: number = this.productItemsInCart[index].quantity;
@@ -54,7 +55,7 @@ export class CartService {
         });
       } else if (quantity > 1) {
         this.productItemsInCart[index].quantity--;
-        this.productItemsInCart[index].price = this.productItemsInCart[index].price * this.productItemsInCart[index].quantity;
+        this.productItemsInCart[index].cartPrice = this.productItemsInCart[index].price * this.productItemsInCart[index].quantity;
         this.productItemsInCartSubject.next(this.productItemsInCart);
       }
 
@@ -64,7 +65,7 @@ export class CartService {
 
 
 
-  public getCartItems(): Observable<Array<Product>> {
+  public getCartItems(): Observable<Array<CartProduct>> {
     return this.productItemsInCartSubject;
   }
 
@@ -74,9 +75,9 @@ export class CartService {
   public getCartTotalAmount(): Observable<number> {
     return this.productItemsInCartSubject
       .pipe(
-        map((items: Array<Product>) => {
+        map((items: Array<CartProduct>) => {
           return items.reduce((prev, curr: any) => {
-            return prev + curr.price;
+            return prev + curr.cartPrice;
           }, 0);
         })
       );
