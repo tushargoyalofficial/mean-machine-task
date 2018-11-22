@@ -25,13 +25,28 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private productService: ProductService
   ) { }
 
 
 
 
 
+  // GET ALL PRODUCTS FROM SERVER
+  getAllProducts(): void {
+    this.productService.fetchProducts()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((res: Product[]) => {
+        this.products = res;
+      }, err => console.log('Error in fetching products: ', err));
+  }
+
+
+
+
+
   ngOnInit() {
+    this.getAllProducts();
   }
 
 
