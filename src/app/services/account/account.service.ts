@@ -40,7 +40,7 @@ export class AccountService {
         // 'Authorization': fooBarToken
       }),
       withCredentials: true // for set-cookie to work
-     };
+    };
     // const headers = new HttpHeaders({
     //   'Content-Type': 'application/json'
     // });
@@ -59,10 +59,26 @@ export class AccountService {
         // 'Authorization': fooBarToken
       }),
       // withCredentials: true // for set-cookie to work
-     };
+    };
     // const headers = new HttpHeaders({
     //   'Content-Type': 'application/json'
     // });
     return this.http.post(url, body, httpOptions);
   }
+
+
+
+
+  // CHECK ACCESS TOKEN IS VALID OR NOT
+  checkUserInfo(authId: string, userId: string): Observable<any> {
+    const url: string = SERVERURL + '/Accounts/' + userId + '?access_token=' + authId;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http.get(url, httpOptions);
+  }
+
 }
