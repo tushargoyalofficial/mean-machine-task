@@ -26,6 +26,8 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+## Stripe key configs
+
 For using stripe secret key, go to /common/models/product.js, line 2, add your secret key
 For using stripe public key, go to /mean-machine-task-ui/src/index.html, line 16, add your public key there
 You can also use dotenv for it as well in production use
