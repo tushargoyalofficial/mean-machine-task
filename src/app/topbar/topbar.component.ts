@@ -9,6 +9,7 @@ import { CartProduct } from '../shared/modalsl/cart-product.modal';
 import { AccountService } from '../services/account/account.service';
 import { takeUntil } from 'rxjs/operators';
 import { SERVERURL } from '../services/config/api';
+import { CheckoutComponent } from '../shared/dialogs/checkout/checkout.component';
 
 @Component({
   selector: 'app-topbar',
@@ -29,6 +30,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   public cartItems$: Observable<Product[]>; // SUBSCRIBE TO PRODUCT CART ITEMS
   public getTotalAmount$: Observable<number>; // SUBSCRIBE TO PRODUCT CART TOTAL AMOUNT
   public products: Array<Product> = [];
+  public cartAmnt: number;
 
   constructor(
     private router: Router,
@@ -44,6 +46,30 @@ export class TopbarComponent implements OnInit, OnDestroy {
   // REMOVE PRODUCT FROM CART
   removeProduct(item: CartProduct): void {
     this.cartService.removeProductFromCart(item);
+  }
+
+
+
+
+
+  // OPEN CART DIALOG
+  public openCartDialog(): void {
+    const dialogRef = this.dialog.open(CheckoutComponent, {
+      closeOnNavigation: true,
+      disableClose: false,
+      minWidth: 650,
+      panelClass: 'nopaddingdialog',
+      maxHeight: '80vh',
+      width: '50%',
+      maxWidth: 750,
+      role: 'alertdialog',
+      data: {
+        cartAmount: this.cartAmnt
+      }
+    });
+    dialogRef.afterClosed().subscribe((closed) => {
+      // run on dialog closed
+    });
   }
 
 
@@ -98,6 +124,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
     this.cartItems$.subscribe((products: CartProduct[]) => {
       this.products = products;
     });
+    this.getTotalAmount$.subscribe(amt => this.cartAmnt = amt);
   }
 
 
