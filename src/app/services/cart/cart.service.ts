@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CartProduct } from 'src/app/shared/modalsl/cart-product.modal';
+import { SERVERURL } from '../config/api';
+import { AccountService } from '../account/account.service';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +16,14 @@ export class CartService {
   private productItemsInCart: Array<CartProduct> = [];
   private productTempArray: Array<any> = [];
 
-  constructor() {
+  public accessToken: string;
+
+  constructor(
+    private http: HttpClient,
+    private accountService: AccountService
+  ) {
     this.productItemsInCartSubject.subscribe(productCart => this.productItemsInCart = productCart);
+    this.accountService.authId.subscribe(authId => this.accessToken = authId);
   }
 
 
@@ -95,5 +104,18 @@ export class CartService {
 
   // PRODUCTS TO CART METHODS *********************************************
 
+
+
+
+  // CHECKOUT
+  public processPayment(body: Object): Observable<any> {
+    const url: string = SERVERURL + '/Products/processPayment?access_token=' + this.accessToken;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    return this.http.post(url, body, httpOptions);
+  }
 
 }
