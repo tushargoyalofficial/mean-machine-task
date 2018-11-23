@@ -12,19 +12,6 @@ form.checkout {
   font-size: 1.1rem;
 }
 
-form.checkout button {
-  padding: 0.5rem 1rem;
-  color: white;
-  background: coral;
-  border: none;
-  border-radius: 4px;
-  margin-top: 1rem;
-}
-
-form.checkout button:active {
-  background: rgb(165, 76, 43);
-}
-
 .StripeElement {
   margin: 1rem 0 1rem;
   background-color: white;

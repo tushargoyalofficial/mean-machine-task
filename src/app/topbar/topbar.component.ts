@@ -56,7 +56,7 @@ export class TopbarComponent implements OnInit, OnDestroy {
   public openCartDialog(): void {
     const dialogRef = this.dialog.open(CheckoutComponent, {
       closeOnNavigation: true,
-      disableClose: false,
+      disableClose: true,
       minWidth: 650,
       panelClass: 'nopaddingdialog',
       maxHeight: '80vh',

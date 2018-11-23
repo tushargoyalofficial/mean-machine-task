@@ -21,6 +21,8 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
   // FOR UNSUBSCRIBING FROM SUBSCRIPTION
   private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
 
+  public isLoading: boolean;
+
   @ViewChild('cardInfo') cardInfo: ElementRef;
 
   public card: any;
@@ -61,10 +63,21 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   async onSubmit() {
+    this.isLoading = true;
     const { token, error } = await stripe.createToken(this.card);
 
     if (error) {
       console.log('Unable to generate token:', error);
+      this.snackbar.open(
+        'Token generation error. Please check connectivity',
+        'CONNECTION ERROR',
+        {
+          duration: 5000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'right'
+        }
+      );
+      this.isLoading = false;
     } else {
       console.log('Token generation success! Go for payment process-->');
       // ...send the token to the your backend to process the charge
@@ -78,6 +91,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe((res: any) => {
           if (res.statusCode === 200 && res.code === 'OK') {
+            this.isLoading = false;
             this.snackbar.open(
               'Payment successful!!',
               'OK',
@@ -92,6 +106,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }, err => {
           console.log('Payment error: ', err);
+          this.isLoading = false;
           this.snackbar.open(
             'Unable to process payment!',
             'OK',
@@ -110,6 +125,7 @@ export class CheckoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnInit() {
+    this.isLoading = false;
   }
 
 
