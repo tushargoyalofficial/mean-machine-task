@@ -64,6 +64,8 @@ export class TopbarComponent implements OnInit, OnDestroy {
       maxWidth: 750,
       role: 'alertdialog',
       data: {
+        userName: this.userName,
+        userEmail: this.userEmail,
         cartAmount: this.cartAmnt
       }
     });
