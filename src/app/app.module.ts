@@ -30,6 +30,7 @@ import { ProfileService } from './services/profile/profile.service';
 
 // DIALOGS
 import { SignoutDialogComponent } from './shared/dialogs/signout-dialog/signout-dialog.component';
+import { CheckoutComponent } from './shared/dialogs/checkout/checkout.component';
 
 
 
@@ -43,6 +44,7 @@ import { SignoutDialogComponent } from './shared/dialogs/signout-dialog/signout-
     TopbarComponent,
     ProductCardComponent,
     SignoutDialogComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,7 @@ import { SignoutDialogComponent } from './shared/dialogs/signout-dialog/signout-
   ],
   entryComponents: [
     SignoutDialogComponent,
+    CheckoutComponent,
   ],
   bootstrap: [AppComponent]
 })
